@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Satisfaction Counts Dashboard</title>
+    <style>
+        /* Add your own custom CSS styles here */
+        body {
+            background: linear-gradient(135deg, #FF6D3C, #FFA13C);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .count {
+            font-size: 48px;
+            margin: 10px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+            .count:nth-child(1) {
+                background-color: #FF3C3C;
+                animation-delay: 0.2s;
+            }
+
+            .count:nth-child(2) {
+                background-color: #FF6D3C;
+                animation-delay: 0.4s;
+            }
+
+            .count:nth-child(3) {
+                background-color: #FFA13C;
+                animation-delay: 0.6s;
+            }
+
+            .count:nth-child(4) {
+                background-color: #FFC73C;
+                animation-delay: 0.8s;
+            }
+
+            .count:nth-child(5) {
+                background-color: #4CFF3C;
+                animation-delay: 1s;
+            }
+
+        .emoji {
+            font-size: 40px;
+            animation: jump 1s infinite;
+        }
+
+        .count:nth-child(1) .emoji::after {
+            content: "\1F603";
+        }
+
+        .count:nth-child(2) .emoji::after {
+            content: "\1F642";
+        }
+
+        .count:nth-child(3) .emoji::after {
+            content: "\1F610";
+        }
+
+        .count:nth-child(4) .emoji::after {
+            content: "\1F641";
+        }
+
+        .count:nth-child(5) .emoji::after {
+            content: "\1F626";
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes jump {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="count" id="count1">500</div>
+        <div class="count" id="count2">120</div>
+        <div class="count" id="count3">464</div>
+        <div class="count" id="count4">5222</div>
+        <div class="count" id="count5">100000</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Fetch the counts periodically
+        setInterval(fetchCounts, 1000);
+
+        function fetchCounts() {
+            $.get('/counts', function(data) {
+                $('#count1').text('Level 1: ' + data[1]);
+                $('#count2').text('Level 2: ' + data[2]);
+                $('#count3').text('Level 3: ' + data[3]);
+                $('#count4').text('Level 4: ' + data[4]);
+                $('#count5').text('Level 5: ' + data[5]);
+            });
+        }
+    </script>
+</body>
+</html>
